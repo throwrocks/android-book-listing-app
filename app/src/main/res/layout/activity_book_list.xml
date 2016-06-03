@@ -22,13 +22,16 @@
             <EditText
                 android:id="@+id/search_field"
                 android:inputType="text"
-                android:hint="Search for books"
+                android:hint="@string/search_field_label"
                 android:cursorVisible="false"
                 android:textColor="@color/book_search_text"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/search_field_left_margin"
+                android:layout_marginStart="@dimen/search_field_right_margin"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
-                android:layout_height="wrap_content" />
+                 />
 
         </android.support.v7.widget.Toolbar>
 
