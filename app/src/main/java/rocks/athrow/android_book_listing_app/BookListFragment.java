@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,52 @@ public class BookListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        final EditText searchField = (EditText) getActivity().findViewById(R.id.search_field);
+        Log.e(LOG_TAG, "searchField: " + searchField);
+        // Set the listeners on the search field
+        if ( searchField != null ){
+
+            searchField.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    searchField.setCursorVisible(true);
+                }
+            });
+
+            searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        searchField.setCursorVisible(false);
+                        Context context = getActivity();
+                        CharSequence text = "Search!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+
+
+                        View view = getActivity().getCurrentFocus();
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+
+                        }
+
+                        handled = true;
+                    }
+                    return handled;
+                }
+            });
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booklist_list, container, false);
@@ -93,6 +140,10 @@ public class BookListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+
+
+
 
 
         }
