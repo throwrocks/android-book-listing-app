@@ -1,6 +1,5 @@
 package rocks.athrow.android_book_listing_app;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
@@ -26,7 +27,7 @@ public class BookListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private static ContentValues[] mValues;
+    private static ArrayList<Book> mValues;
     private BookListAdapter mAdapter = new BookListAdapter(mValues, mListener);
     private RecyclerView recyclerView;
     /**
@@ -56,10 +57,10 @@ public class BookListFragment extends Fragment {
 
         FetchTask fetch = new FetchTask(getActivity(), new FetchTask.AsyncResponse(){
             @Override
-            public void processFinish(ContentValues[] output) {
+            public void processFinish(ArrayList<Book> output) {
                 Log.e(LOG_TAG, "processFinish: " + true);
                 mValues = output;
-                Log.e(LOG_TAG, "mValues: " + mValues.length );
+                Log.e(LOG_TAG, "mValues: " + mValues.size() );
 
                 mAdapter = new BookListAdapter(mValues,mListener);
                 mAdapter.notifyDataSetChanged();
@@ -126,6 +127,6 @@ public class BookListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(ContentValues[] mValues);
+        void onListFragmentInteraction(ArrayList<Book> mValues);
     }
 }

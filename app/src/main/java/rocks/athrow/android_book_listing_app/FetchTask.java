@@ -9,18 +9,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by josel on 6/1/2016.
  */
-public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
+public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
 
     private static final String LOG_TAG = FetchTask.class.getSimpleName();
     private final Context mContext;
     public AsyncResponse delegate;
 
     public interface AsyncResponse {
-        void processFinish(ContentValues[] output);
+        void processFinish(ArrayList<Book> output);
     }
 
     public FetchTask(Context context, AsyncResponse delegate){
@@ -31,9 +33,9 @@ public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
 
 
     @Override
-    protected ContentValues[] doInBackground(String... params){
+    protected ArrayList<Book> doInBackground(String... params){
 
-        ContentValues[] parsedResults;
+        ArrayList<Book> parsedResults;
         API mApi = new API(mContext);
         String jsonResults = mApi.callAPI();
 
@@ -45,7 +47,7 @@ public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
                 JSONObject jsonObject = new JSONObject(jsonResults);
                 JSONArray resultsArray = jsonObject.getJSONArray("items");
                 int countResults = resultsArray.length();
-                parsedResults = new ContentValues[countResults];
+                parsedResults = new ArrayList<>();
                 // Loop through the resultsArray to parse each Json object needed
                 for (int i = 0; i < countResults; i++) {
                     JSONObject bookRecord = resultsArray.getJSONObject(i);
@@ -68,16 +70,10 @@ public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
                     }
 
                     Log.e(LOG_TAG, "Parsing string: " + bookTitle + " " + bookAuthorsString );
-                    // Create a Book oject
+                    // Create a Book object
                     Book mBook = new Book(bookTitle, bookAuthorsString);
-                    // Create a content values object
-                    ContentValues bookValues = new ContentValues();
-                    bookValues.put("title", bookTitle);
-                    bookValues.put("authors", "by " + bookAuthorsString);
-                    //----------------------------------------------------------------------------------
-                    // Build an array of content values to be returned and processed outside this method
-                    //----------------------------------------------------------------------------------
-                    parsedResults[i] = bookValues;
+
+                    parsedResults.add(i, mBook);
                 }
                 // Return the results
                 return parsedResults;
@@ -91,7 +87,7 @@ public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
 
 
     @Override
-    protected void onPostExecute(ContentValues[] parsedResults){
+    protected void onPostExecute(ArrayList<Book> parsedResults){
         delegate.processFinish(parsedResults);
     }
 

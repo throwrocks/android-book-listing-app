@@ -1,9 +1,10 @@
 package rocks.athrow.android_book_listing_app;
 
-import android.content.ContentValues;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 
 public class BookListActivity extends AppCompatActivity implements BookListFragment.OnListFragmentInteractionListener {
@@ -20,7 +21,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
 
 
     @Override
-    public void onListFragmentInteraction(ContentValues[] mValues) {
+    public void onListFragmentInteraction(ArrayList<Book> mValues) {
 
     }
 }
