@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import rocks.athrow.android_book_listing_app.dummy.DummyContent;
 
 public class BookListActivity extends AppCompatActivity implements BookListFragment.OnListFragmentInteractionListener {
     private static final String LOG_TAG = BookListActivity.class.getSimpleName();

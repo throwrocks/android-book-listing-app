@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,10 +68,12 @@ public class FetchTask extends AsyncTask<String, Void, ContentValues[]> {
                     }
 
                     Log.e(LOG_TAG, "Parsing string: " + bookTitle + " " + bookAuthorsString );
+                    // Create a Book oject
+                    Book mBook = new Book(bookTitle, bookAuthorsString);
                     // Create a content values object
                     ContentValues bookValues = new ContentValues();
                     bookValues.put("title", bookTitle);
-                    bookValues.put("authors", bookAuthorsString);
+                    bookValues.put("authors", "by " + bookAuthorsString);
                     //----------------------------------------------------------------------------------
                     // Build an array of content values to be returned and processed outside this method
                     //----------------------------------------------------------------------------------
