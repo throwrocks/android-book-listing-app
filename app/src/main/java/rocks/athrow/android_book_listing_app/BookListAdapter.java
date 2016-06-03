@@ -37,7 +37,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
             Log.e(LOG_TAG, "onBindViewHolder: " + mValues.size());
             holder.mItem = mValues.get(position);
             holder.mTitleView.setText(mValues.get(position).title);
-            holder.mAuthorsView.setText(mValues.get(position).authors);
+            String authorsString = "by " + mValues.get(position).authors;
+            holder.mAuthorsView.setText(authorsString);
 
             Log.e(LOG_TAG, "setAdapter: " + mValues.get(position));
             holder.mView.setOnClickListener(new View.OnClickListener() {
