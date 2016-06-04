@@ -7,8 +7,11 @@
     <dimen name="search_field_left_margin">4dp</dimen>
     <dimen name="search_field_right_margin">4dp</dimen>
     <!--Book List-->
-    <dimen name="book_list_left_margin">4dp</dimen>
-    <dimen name="book_list_right_margin">4dp</dimen>
+    <dimen name="book_list_left_margin">18dp</dimen>
+    <dimen name="book_list_right_margin">18dp</dimen>
     <dimen name="book_list_top_margin">12dp</dimen>
     <dimen name="book_list_bottom_margin">4dp</dimen>
+    <dimen name="book_list_title_text">24sp</dimen>
+    <!--Max Results Spinner-->
+    <dimen name="spinner_text">12sp</dimen>
 </resources>

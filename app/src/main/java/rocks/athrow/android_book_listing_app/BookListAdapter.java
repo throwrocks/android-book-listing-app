@@ -16,8 +16,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     private final BookListFragment.OnListFragmentInteractionListener mListener;
 
     public BookListAdapter(ArrayList<Book> items, BookListFragment.OnListFragmentInteractionListener listener) {
-        Log.e(LOG_TAG, "constructor: " + true);
-        Log.e(LOG_TAG, "items: " + items);
+       // Log.e(LOG_TAG, "constructor: " + true);
+        //Log.e(LOG_TAG, "items: " + items);
         mValues = items;
         mListener = listener;
     }
@@ -26,21 +26,21 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_booklist, parent, false);
-        Log.e(LOG_TAG, "onCreateViewHolder: " + true);
+        //Log.e(LOG_TAG, "onCreateViewHolder: " + true);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Log.e(LOG_TAG, "onBindViewHolder: " + true);
+        //Log.e(LOG_TAG, "onBindViewHolder: " + true);
 
-            Log.e(LOG_TAG, "onBindViewHolder: " + mValues.size());
+            //Log.e(LOG_TAG, "onBindViewHolder: " + mValues.size());
             holder.mItem = mValues.get(position);
             holder.mTitleView.setText(mValues.get(position).title);
             String authorsString = "by " + mValues.get(position).authors;
             holder.mAuthorsView.setText(authorsString);
 
-            Log.e(LOG_TAG, "setAdapter: " + mValues.get(position));
+            //Log.e(LOG_TAG, "setAdapter: " + mValues.get(position));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -57,10 +57,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public int getItemCount() {
 
         if ( mValues != null ) {
-            Log.e(LOG_TAG, "getItemCount: " + mValues.size());
+            //Log.e(LOG_TAG, "getItemCount: " + mValues.size());
             return mValues.size();
         }else{
-            Log.e(LOG_TAG, "getItemCount: " + "zero");
+            //Log.e(LOG_TAG, "getItemCount: " + "zero");
             return 0;
         }
     }

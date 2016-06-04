@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="rocks.athrow.android_book_listing_app.BookListFragment"
-    tools:listitem="@layout/fragment_booklist" />
+    tools:listitem="@layout/fragment_booklist"
+    />

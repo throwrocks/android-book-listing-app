@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <!--Book Search-->
     <color name="book_search_text">#E8EAF6</color>
+    <color name="book_search_hint">#9FA8DA</color>
     <!--Book List-->
     <color name="book_list_authors">#616161</color>
 </resources>

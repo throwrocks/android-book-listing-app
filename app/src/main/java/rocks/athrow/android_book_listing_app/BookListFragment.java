@@ -1,12 +1,16 @@
 package rocks.athrow.android_book_listing_app;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +37,7 @@ import java.util.ArrayList;
  */
 public class BookListFragment extends Fragment {
     private static final String LOG_TAG = BookListFragment.class.getSimpleName();
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private static ArrayList<Book> mValues;
@@ -73,19 +76,25 @@ public class BookListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.e(LOG_TAG, "onActivityCreated: " + true);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int searchFieldWidth = width - 318;
+        Log.e(LOG_TAG, "searchFieldWidth: " + searchFieldWidth);
         final EditText searchField = (EditText) getActivity().findViewById(R.id.search_field);
+        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(searchFieldWidth, LinearLayout.LayoutParams.MATCH_PARENT); // Width , height
+        searchField.setLayoutParams(lparams);
         final Spinner maxResultsField = (Spinner) getActivity().findViewById(R.id.max_results_spinner);
         //Log.e(LOG_TAG, "searchField: " + searchField);
         // Set the listeners on the search field
         if ( searchField != null ){
-
             searchField.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
                     searchField.setCursorVisible(true);
                 }
             });
-
             searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -149,13 +158,11 @@ public class BookListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
         }
         return view;
     }
 
     public class MaxResultsSpinnerListener implements AdapterView.OnItemSelectedListener {
-
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
             int maxResults = Integer.parseInt(selected);
@@ -164,7 +171,6 @@ public class BookListFragment extends Fragment {
             Log.e(LOG_TAG, "max selected: " + true);
             Log.e(LOG_TAG, "search criteria: " + searchCriteria.isEmpty());
             if ( !searchCriteria.isEmpty() ){ getBooks(searchCriteria,maxResults); }
-
         }
 
         public void onNothingSelected(AdapterView parent) {
