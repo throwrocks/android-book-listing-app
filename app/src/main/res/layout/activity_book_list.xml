@@ -94,6 +94,7 @@
                 android:layout_marginTop="@dimen/book_list_top_margin"
                 android:scaleType="centerCrop"
                 android:background="@drawable/crying"
+                android:contentDescription="@string/empty_results_icon_description"
                 />
         </LinearLayout>
         <LinearLayout
@@ -121,6 +122,7 @@
                     android:layout_marginTop="@dimen/book_list_top_margin"
                     android:scaleType="centerCrop"
                     android:background="@drawable/no_connection"
+                    android:contentDescription="@string/no_connection_icon_description"
                     />
         </LinearLayout>
         <fragment

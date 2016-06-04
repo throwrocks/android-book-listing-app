@@ -116,7 +116,7 @@ public class BookListFragment extends Fragment {
 
         if ( isConnected ){
             noConnection.setVisibility(View.GONE);
-            FetchTask fetch = new FetchTask(getActivity(), new FetchTask.AsyncResponse(){
+            FetchTask fetch = new FetchTask(new FetchTask.AsyncResponse(){
             @Override
             public void processFinish(ArrayList<Book> output) {
                 mValues = output;

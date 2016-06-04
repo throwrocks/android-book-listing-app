@@ -19,7 +19,7 @@ class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
     private final String queryURI;
     private final int maxResults;
     // Constructor
-    public FetchTask(Context context, AsyncResponse delegate, String queryURI, int maxResults){
+    public FetchTask(AsyncResponse delegate, String queryURI, int maxResults){
         this.delegate = delegate;
         this.queryURI = queryURI;
         this.maxResults = maxResults;
