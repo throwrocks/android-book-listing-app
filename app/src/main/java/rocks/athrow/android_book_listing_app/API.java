@@ -1,6 +1,5 @@
 package rocks.athrow.android_book_listing_app;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -11,41 +10,35 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
 
 /**
- * Created by josel on 6/1/2016.
+ * API
+ * This class provides a method for querying to Google Books API
  */
 class API {
     private static final String LOG_TAG = API.class.getSimpleName();
-
-    private final Context mContext;
-
     private static final String apiURI = "https://www.googleapis.com/books/v1/volumes?q=";
-
     // Constructor
-    public API(Context context){
-        this.mContext = context;
-
+    public API(){
     }
 
     /**
      * callAPI
-     * @return
+     * @param searchCriteria the search criteria entered in the EditText field
+     * @param maxResults the total numbers of results to be returned from the API
+     * @return String containing the API results in JSON format
      */
     public String callAPI (String searchCriteria, int maxResults){
         String querySearchCriteria;
         String queryURI;
         try {
+            // Encode the URL to handle multi word searches and other characters
             querySearchCriteria = java.net.URLEncoder.encode(searchCriteria ,"UTF-8");
             queryURI = apiURI + querySearchCriteria + "&maxResults=" + maxResults;
         } catch (UnsupportedEncodingException e) {
             return null;
-
         }
 
-
-        Log.e(LOG_TAG, "callApiString " + queryURI);
         String results = null;
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -69,13 +62,9 @@ class API {
             reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging ->  + "\n"
                 buffer.append(line);
             }
             if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
                 results = null;
             }
             results = buffer.toString();
@@ -93,7 +82,6 @@ class API {
                 }
             }
         }
-        //Log.e(LOG_TAG, "results: " + results);
         return results;
     }
 }

@@ -14,15 +14,12 @@ import java.util.ArrayList;
  * This class handles querying the Google Books API, receiving the results, parsing them, building
  * an ArrayList of Book Objects, and returning the result
  */
-public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
-    // --Commented out by Inspection (6/4/2016 9:05 AM):private static final String LOG_TAG = FetchTask.class.getSimpleName();
-    private final Context mContext;
+class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
     private final AsyncResponse delegate;
     private final String queryURI;
     private final int maxResults;
     // Constructor
     public FetchTask(Context context, AsyncResponse delegate, String queryURI, int maxResults){
-        this.mContext = context;
         this.delegate = delegate;
         this.queryURI = queryURI;
         this.maxResults = maxResults;
@@ -40,7 +37,7 @@ public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
     @Override
     protected ArrayList<Book> doInBackground(String... params){
         // Create a new API Object
-        API mApi = new API(mContext);
+        API mApi = new API();
         // Call the API and get the results in a String variable
         String jsonResults = mApi.callAPI(queryURI, maxResults);
         // If the results are not null proceed to parsing and creating Book Objects

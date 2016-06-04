@@ -1,12 +1,13 @@
 package rocks.athrow.android_book_listing_app;
 
 /**
- * Created by josel on 6/2/2016.
+ * Book
+ * A custom class to store Book information
  */
 class Book {
 
-    String title;
-    String authors;
+    final String title;
+    final String authors;
 
 
     public Book(

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/activity"
     tools:context=".BookListActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -14,7 +13,6 @@
         android:theme="@style/AppTheme">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -47,7 +45,6 @@
                 android:layout_margin="0dp"
                >
                 <TextView
-                    android:id="@+id/max_results_label"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/book_search_text"
@@ -55,8 +52,8 @@
                     android:gravity="center_horizontal"
                     android:layout_marginEnd="@dimen/book_list_right_margin"
                     android:text="@string/search_max_results_spinner_label"
+                    android:contentDescription="@string/empty_results_icon_description"
                     />
-
                 <Spinner
                     android:id="@+id/max_results_spinner"
                     android:layout_width="75dp"
@@ -67,13 +64,66 @@
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <FrameLayout
-        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:id="@+id/empty_results"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/empty_results_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="22dp"
+                android:text="@string/empty_results_message"
+                />
+            <ImageView
+                android:id="@+id/empty_results_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/book_list_top_margin"
+                android:scaleType="centerCrop"
+                android:background="@drawable/crying"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/no_connection"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+                <TextView
+                    android:id="@+id/no_connection_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="22dp"
+                    android:text="@string/no_connection_message"
+                    />
+                <ImageView
+                    android:id="@+id/no_connection_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/book_list_top_margin"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/no_connection"
+                    />
+        </LinearLayout>
         <fragment
-            android:id="@+id/fragment"
             android:tag="booksList"
             android:name="rocks.athrow.android_book_listing_app.BookListFragment"
             tools:layout="@layout/fragment_booklist_list"

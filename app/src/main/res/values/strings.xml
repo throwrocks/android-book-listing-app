@@ -3,6 +3,12 @@
     <string name="search_field_label">Search for books</string>
     <string name="search_max_results_spinner_label">Max Results</string>
 
+    <string name="no_connection_message">No connection</string>
+    <string name="no_connection_icon_description">A disabled Wi-fi signal</string>
+
+    <string name="empty_results_message">Nothing found</string>
+    <string name="empty_results_icon_description">A crying face</string>
+
     <string-array name="max_results">
         <item>10</item>
         <item>20</item>
