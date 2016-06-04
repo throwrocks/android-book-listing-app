@@ -20,19 +20,47 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme">
 
-            <EditText
-                android:id="@+id/search_field"
-                android:inputType="text"
-                android:hint="@string/search_field_label"
-                android:cursorVisible="false"
-                android:textColor="@color/book_search_text"
-                android:layout_width="match_parent"
+
+                <EditText
+                    android:id="@+id/search_field"
+                    android:inputType="text"
+                    android:hint="@string/search_field_label"
+                    android:cursorVisible="false"
+                    android:textColor="@color/book_search_text"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/search_field_left_margin"
+                    android:layout_marginStart="@dimen/search_field_right_margin"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    />
+            <LinearLayout
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/search_field_left_margin"
-                android:layout_marginStart="@dimen/search_field_right_margin"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
+                android:background="#2962FF"
+                android:orientation="vertical"
+                android:layout_margin="0dp"
+               >
+                <TextView
+                    android:id="@+id/max_results_label"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/book_search_text"
+                    android:textSize="12sp"
+                    android:gravity="center_horizontal"
+                    android:background="#388E3C"
+                    android:layout_marginEnd="@dimen/book_list_right_margin"
+                    android:text="Max Results"
+                    />
+
+                <Spinner
+                    android:id="@+id/max_results_spinner"
+                    android:layout_width="75dp"
+                    android:layout_height="24dp"
+                    android:background="#4DB6AC"
+                    android:entries="@array/max_results"
                  />
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 

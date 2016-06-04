@@ -8,8 +8,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 
 /**
  * Created by josel on 6/1/2016.
@@ -19,7 +21,7 @@ class API {
 
     private final Context mContext;
 
-    private static final String apiURI = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=10";
+    private static final String apiURI = "https://www.googleapis.com/books/v1/volumes?q=";
 
     // Constructor
     public API(Context context){
@@ -31,15 +33,26 @@ class API {
      * callAPI
      * @return
      */
-    public String callAPI (){
-        Log.e(LOG_TAG, "callApiString " + apiURI);
+    public String callAPI (String searchCriteria, int maxResults){
+        String querySearchCriteria;
+        String queryURI;
+        try {
+            querySearchCriteria = java.net.URLEncoder.encode(searchCriteria ,"UTF-8");
+            queryURI = apiURI + querySearchCriteria + "&maxResults=" + maxResults;
+        } catch (UnsupportedEncodingException e) {
+            return null;
+
+        }
+
+
+        Log.e(LOG_TAG, "callApiString " + queryURI);
         String results = null;
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         try {
             Log.e(LOG_TAG, "buildTheURL " + true);
             // Build the URL
-            Uri builtUri = Uri.parse(apiURI).buildUpon().build();
+            Uri builtUri = Uri.parse(queryURI).buildUpon().build();
             URL url = new URL(builtUri.toString());
             // Establish the connection
             urlConnection = (HttpURLConnection) url.openConnection();

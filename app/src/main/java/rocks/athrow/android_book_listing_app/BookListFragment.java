@@ -7,13 +7,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,20 +65,6 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.e(LOG_TAG, "onCreate: " + true);
 
-        FetchTask fetch = new FetchTask(getActivity(), new FetchTask.AsyncResponse(){
-            @Override
-            public void processFinish(ArrayList<Book> output) {
-                Log.e(LOG_TAG, "processFinish: " + true);
-                mValues = output;
-                Log.e(LOG_TAG, "mValues: " + mValues.size() );
-
-                mAdapter = new BookListAdapter(mValues,mListener);
-                mAdapter.notifyDataSetChanged();
-                recyclerView.setAdapter(mAdapter);
-            }
-        });
-        fetch.execute();
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -85,7 +75,8 @@ public class BookListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         final EditText searchField = (EditText) getActivity().findViewById(R.id.search_field);
-        Log.e(LOG_TAG, "searchField: " + searchField);
+        final Spinner maxResultsField = (Spinner) getActivity().findViewById(R.id.max_results_spinner);
+        //Log.e(LOG_TAG, "searchField: " + searchField);
         // Set the listeners on the search field
         if ( searchField != null ){
 
@@ -99,31 +90,49 @@ public class BookListFragment extends Fragment {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     boolean handled = false;
+                    Log.e(LOG_TAG, "editorAction: " + true);
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        String maxResultsString = maxResultsField.getSelectedItem().toString();
+                        int maxResults = Integer.parseInt(maxResultsString);
+                        Log.e(LOG_TAG, "search: " + true);
                         searchField.setCursorVisible(false);
-                        Context context = getActivity();
-                        CharSequence text = "Search!";
-                        int duration = Toast.LENGTH_SHORT;
-
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-
-
+                        String searchCriteria = searchField.getText().toString();
+                        getBooks(searchCriteria,maxResults);
                         View view = getActivity().getCurrentFocus();
                         if (view != null) {
                             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-
                         }
-
                         handled = true;
                     }
                     return handled;
                 }
             });
         }
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.max_results, R.layout.spinner_max_results);
+        adapter.setDropDownViewResource(R.layout.spinner_drop_down_item);
+        maxResultsField.setAdapter(adapter);
+        maxResultsField.setOnItemSelectedListener(new MaxResultsSpinnerListener());
+    }
 
+    private void getBooks(String searchCriteria, int maxResults){
+        Log.e(LOG_TAG, "getBooks: " + true);
+        FetchTask fetch = new FetchTask(getActivity(), new FetchTask.AsyncResponse(){
+            @Override
+            public void processFinish(ArrayList<Book> output) {
+                Log.e(LOG_TAG, "processFinish: " + mValues);
+                mValues = output;
+                mAdapter = new BookListAdapter(mValues, mListener);
+                recyclerView.setAdapter(mAdapter);
+                if ( mValues == null ){
+                    Toast toast = Toast.makeText(getContext(),"Nothing found :(", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+
+            }
+        }, searchCriteria, maxResults);
+        fetch.execute();
     }
 
     @Override
@@ -141,16 +150,27 @@ public class BookListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-
-
-
-
-
         }
         return view;
     }
 
+    public class MaxResultsSpinnerListener implements AdapterView.OnItemSelectedListener {
 
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            String selected = parent.getItemAtPosition(pos).toString();
+            int maxResults = Integer.parseInt(selected);
+            final EditText searchField = (EditText) getActivity().findViewById(R.id.search_field);
+            String searchCriteria = searchField.getText().toString();
+            Log.e(LOG_TAG, "max selected: " + true);
+            Log.e(LOG_TAG, "search criteria: " + searchCriteria.isEmpty());
+            if ( !searchCriteria.isEmpty() ){ getBooks(searchCriteria,maxResults); }
+
+        }
+
+        public void onNothingSelected(AdapterView parent) {
+            // Do nothing.
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

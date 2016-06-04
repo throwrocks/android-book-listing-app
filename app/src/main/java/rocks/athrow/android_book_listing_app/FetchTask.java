@@ -20,14 +20,18 @@ public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
     private static final String LOG_TAG = FetchTask.class.getSimpleName();
     private final Context mContext;
     public AsyncResponse delegate;
+    private final String queryURI;
+    private final int maxResults;
 
     public interface AsyncResponse {
         void processFinish(ArrayList<Book> output);
     }
 
-    public FetchTask(Context context, AsyncResponse delegate){
+    public FetchTask(Context context, AsyncResponse delegate, String queryURI, int maxResults){
         this.mContext = context;
         this.delegate = delegate;
+        this.queryURI = queryURI;
+        this.maxResults = maxResults;
 
     }
 
@@ -37,7 +41,7 @@ public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
 
         ArrayList<Book> parsedResults;
         API mApi = new API(mContext);
-        String jsonResults = mApi.callAPI();
+        String jsonResults = mApi.callAPI(queryURI, maxResults);
 
 
 
@@ -57,17 +61,36 @@ public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
                     String bookTitle = bookVolumeInfo.getString("title");
                     //String bookTitle = bookVolumeInfo.getString("title");
                     // Get the authors node
-                    JSONArray bookAuthors = bookVolumeInfo.getJSONArray("authors");
-                    // Count the authors
-                    int countAuthors = bookAuthors.length();
-                    Log.e(LOG_TAG, "countAuthors: " + countAuthors);
-                    String bookAuthorsString = "";
-                    for (int e = 0; e < countAuthors; e++) {
-                        String author =  bookAuthors.getString(e);
-                        if ( bookAuthorsString.isEmpty() ){ bookAuthorsString = author; }
-                        else if ( e == countAuthors - 1 ){ bookAuthorsString = bookAuthorsString + " and " + author; }
-                        else { bookAuthorsString = bookAuthorsString + ", " + author; }
+                    JSONArray bookAuthors = null;
+                    try {
+                        bookAuthors = bookVolumeInfo.getJSONArray("authors");
+                        Log.e(LOG_TAG, "bookAuthors: " + bookAuthors );
+
                     }
+                    catch (JSONException ignored) {}
+
+
+                    String bookAuthorsString = "";
+                    if ( bookAuthors == null ){
+                        bookAuthorsString = "Unknown" ;
+                        Log.e(LOG_TAG, "Unknown: " + true );
+                    }else {
+                        int countAuthors = bookAuthors.length();
+                        Log.e(LOG_TAG, "countAuthors: " + countAuthors);
+                        for (int e = 0; e < countAuthors; e++) {
+                            String author = bookAuthors.getString(e);
+                            if (bookAuthorsString.isEmpty()) {
+                                bookAuthorsString = author;
+                            } else if (e == countAuthors - 1) {
+                                bookAuthorsString = bookAuthorsString + " and " + author;
+                            } else {
+                                bookAuthorsString = bookAuthorsString + ", " + author;
+                            }
+                        }
+                    }
+                    // Count the authors
+
+
 
                     Log.e(LOG_TAG, "Parsing string: " + bookTitle + " " + bookAuthorsString );
                     // Create a Book object
@@ -88,7 +111,13 @@ public class FetchTask extends AsyncTask<String, Void, ArrayList<Book>> {
 
     @Override
     protected void onPostExecute(ArrayList<Book> parsedResults){
-        delegate.processFinish(parsedResults);
+        Log.e(LOG_TAG, "parsed results: " + parsedResults);
+
+           delegate.processFinish(parsedResults);
+
+
+
+
     }
 
 

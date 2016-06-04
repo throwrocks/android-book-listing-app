@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Book Listing App</string>
     <string name="search_field_label">Search for books</string>
+
+
+    <string-array name="max_results">
+        <item>10</item>
+        <item>20</item>
+        <item>40</item>
+    </string-array>
+
 </resources>
