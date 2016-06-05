@@ -10,5 +10,6 @@
     <dimen name="book_list_bottom_margin">4dp</dimen>
     <dimen name="book_list_title_text">24sp</dimen>
     <!--Max Results Spinner-->
+    <dimen name="spinner_top_margin">4dp</dimen>
     <dimen name="spinner_text">12sp</dimen>
 </resources>

@@ -54,15 +54,6 @@ public class BookListFragment extends Fragment {
         // Set listeners on input fields and other setups
         final EditText searchField = (EditText) getActivity().findViewById(R.id.search_field);
         final Spinner maxResultsField = (Spinner) getActivity().findViewById(R.id.max_results_spinner);
-        // Automatically set the width of the search EditText
-        // So when the device is rotated to landscape the field is enlarged
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int searchFieldWidth = width - 318;
-        final LinearLayout.LayoutParams searchFieldParams = new LinearLayout.LayoutParams(searchFieldWidth, LinearLayout.LayoutParams.MATCH_PARENT); // Width , height
-        searchField.setLayoutParams(searchFieldParams);
         // Set the listeners on the SearchField
             searchField.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {

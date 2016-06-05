@@ -17,50 +17,58 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme">
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="0dp"
-                >
-            <EditText
-                android:id="@+id/search_field"
-                android:inputType="text"
-                android:hint="@string/search_field_label"
-                android:textColorHint="@color/book_search_hint"
-                android:cursorVisible="false"
-                android:textColor="@color/book_search_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/search_field_left_margin"
-                android:layout_marginStart="@dimen/search_field_right_margin"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="0dp"
-               >
-                <TextView
-                    android:layout_width="75dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/book_search_text"
-                    android:textSize="12sp"
-                    android:gravity="center_horizontal"
-                    android:layout_marginEnd="@dimen/book_list_right_margin"
-                    android:text="@string/search_max_results_spinner_label"
-                    android:contentDescription="@string/empty_results_icon_description"
-                    />
-                <Spinner
-                    android:id="@+id/max_results_spinner"
-                    android:layout_width="75dp"
-                    android:layout_height="24dp"
-                    android:entries="@array/max_results"
-                    android:background="@color/colorPrimary"
-                 />
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/search_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/search_field_left_margin"
+                        android:layout_marginStart="@dimen/search_field_right_margin"
+                        android:cursorVisible="false"
+                        android:hint="@string/search_field_label"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/book_search_text"
+                        android:textColorHint="@color/book_search_hint" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spinner_top_margin"
+                    android:layout_weight=".25"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/book_list_right_margin"
+                        android:contentDescription="@string/empty_results_icon_description"
+                        android:gravity="center_horizontal"
+                        android:text="@string/search_max_results_spinner_label"
+                        android:textColor="@color/book_search_text"
+                        android:textSize="12sp" />
+
+                    <Spinner
+                        android:id="@+id/max_results_spinner"
+                        android:layout_width="75dp"
+                        android:layout_height="24dp"
+                        android:background="@color/colorPrimary"
+                        android:entries="@array/max_results" />
+                </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -69,68 +77,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:id="@+id/empty_results"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            >
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
             <TextView
                 android:id="@+id/empty_results_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="22dp"
+                android:gravity="center_horizontal"
                 android:text="@string/empty_results_message"
-                />
+                android:textSize="24sp" />
+
             <ImageView
                 android:id="@+id/empty_results_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/book_list_top_margin"
-                android:scaleType="centerCrop"
                 android:background="@drawable/crying"
                 android:contentDescription="@string/empty_results_icon_description"
-                />
+                android:gravity="center"
+                android:scaleType="centerCrop" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/no_connection"
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            >
-                <TextView
-                    android:id="@+id/no_connection_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="22dp"
-                    android:text="@string/no_connection_message"
-                    />
-                <ImageView
-                    android:id="@+id/no_connection_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/book_list_top_margin"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/no_connection"
-                    android:contentDescription="@string/no_connection_icon_description"
-                    />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/no_connection_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:gravity="center_horizontal"
+                android:text="@string/no_connection_message"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/no_connection_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/book_list_top_margin"
+                android:background="@drawable/no_connection"
+                android:contentDescription="@string/no_connection_icon_description"
+                android:gravity="center"
+                android:scaleType="centerCrop" />
         </LinearLayout>
+
         <fragment
-            android:tag="booksList"
             android:name="rocks.athrow.android_book_listing_app.BookListFragment"
-            tools:layout="@layout/fragment_booklist_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:tag="booksList"
+            tools:layout="@layout/fragment_booklist_list" />
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
