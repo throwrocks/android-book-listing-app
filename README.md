@@ -1,9 +1,5 @@
 # android-book-listing-app
 
-I created this project following specifications from Udacity to submit it as part of the Code Reviewer Course.
+I created this app as part of the Udacity Code Reviewer training. It has a search box below the action bar. When you search, an AsyncTask fires up to call the Google Books Api, gets the JSON response, parses it, and returns the data as an ArrayList of custom Book objects. The lists is made with a RecyclerView and is populated with an Adapter. Next to the search box is a Spinner that allows you select the max results (10, 20, or 40). The Spinner uses a custom Layout that pulls the values from a string-array in the string resources file.
 
-### General Specifications ###
-
-A user should be able to enter a keyword, press the search button, and recieve a list of published books which relate to that keyword.
-
-To achieve this, you'll make use of the Google Books API. This is a well-maintained API which returns information in a JSON format.
+![Android Book Listing App uses the Google Books API](http://throw.rocks/android-projects/book-listing/book-listing.png)
