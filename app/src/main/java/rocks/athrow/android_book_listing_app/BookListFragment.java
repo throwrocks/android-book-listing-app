@@ -30,7 +30,7 @@ public class BookListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private static ArrayList<Book> mValues;
-    private BookListAdapter mAdapter = new BookListAdapter(mValues);
+    private BookListAdapter mAdapter = new BookListAdapter(mValues, getContext());
     private RecyclerView recyclerView;
 
     // Constructor
@@ -110,7 +110,7 @@ public class BookListFragment extends Fragment {
                 @Override
                 public void processFinish(ArrayList<Book> output) {
                     mValues = output;
-                    mAdapter = new BookListAdapter(mValues);
+                    mAdapter = new BookListAdapter(mValues, getContext());
                     recyclerView.setAdapter(mAdapter);
                     // If nothing found, show a message
                     if (mValues == null) {

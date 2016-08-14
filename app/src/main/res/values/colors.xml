@@ -8,4 +8,5 @@
     <color name="book_search_hint">#9FA8DA</color>
     <!--Book List-->
     <color name="book_list_authors">#616161</color>
+    <color name="divider_color">#BDBDBD</color>
 </resources>
