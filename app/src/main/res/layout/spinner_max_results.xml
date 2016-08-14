@@ -2,7 +2,6 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/spinner_text"
-    android:textColor="#E8EAF6"
     android:gravity="center_horizontal"
-    />
+    android:textColor="@color/book_search_text"
+    android:textSize="@dimen/spinner_text" />

@@ -1,6 +1,5 @@
 package rocks.athrow.android_book_listing_app;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import org.json.JSONArray;
 import org.json.JSONException;

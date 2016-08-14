@@ -18,22 +18,24 @@ import java.net.URL;
 class API {
     private static final String LOG_TAG = API.class.getSimpleName();
     private static final String apiURI = "https://www.googleapis.com/books/v1/volumes?q=";
+
     // Constructor
-    public API(){
+    public API() {
     }
 
     /**
      * callAPI
+     *
      * @param searchCriteria the search criteria entered in the EditText field
-     * @param maxResults the total numbers of results to be returned from the API
+     * @param maxResults     the total numbers of results to be returned from the API
      * @return String containing the API results in JSON format
      */
-    public String callAPI (String searchCriteria, int maxResults){
+    public String callAPI(String searchCriteria, int maxResults) {
         String querySearchCriteria;
         String queryURI;
         try {
             // Encode the URL to handle multi word searches and other characters
-            querySearchCriteria = java.net.URLEncoder.encode(searchCriteria ,"UTF-8");
+            querySearchCriteria = java.net.URLEncoder.encode(searchCriteria, "UTF-8");
             queryURI = apiURI + querySearchCriteria + "&maxResults=" + maxResults;
         } catch (UnsupportedEncodingException e) {
             return null;

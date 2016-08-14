@@ -13,13 +13,11 @@ class Book {
     public Book(
             String title,
             String authors
-    ){
+    ) {
 
         this.title = title;
         this.authors = authors;
 
     }
-
-
 
 }

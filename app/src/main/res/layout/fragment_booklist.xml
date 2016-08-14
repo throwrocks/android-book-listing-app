@@ -3,25 +3,27 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/book_list_left_margin"
-        android:layout_marginEnd="@dimen/book_list_left_margin"
-        android:layout_marginTop="@dimen/book_list_top_margin"
         android:layout_marginBottom="@dimen/book_list_bottom_margin"
+        android:layout_marginEnd="@dimen/book_list_left_margin"
+        android:layout_marginStart="@dimen/book_list_left_margin"
+        android:layout_marginTop="@dimen/book_list_top_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/book_list_title_text"
-        android:textStyle="bold"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/authors"
-        android:layout_below="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/book_list_left_margin"
-        android:layout_marginEnd="@dimen/book_list_left_margin"
+        android:layout_below="@+id/title"
         android:layout_marginBottom="@dimen/book_list_bottom_margin"
-        android:textColor="@color/book_list_authors"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginEnd="@dimen/book_list_left_margin"
+        android:layout_marginStart="@dimen/book_list_left_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/book_list_authors" />
 </RelativeLayout>
