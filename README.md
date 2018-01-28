@@ -6,4 +6,4 @@ The app provides a search field to query the Google Books API and display the re
 
 You can see how how the app looks below.
 
-![Android Book Listing App uses the Google Books API](http://throw.rocks/android-projects/book-listing/book-listing-20160830.png)
+![Android Book Listing App uses the Google Books API](https://github.com/throwrocks/android-project-images/blob/master/book-listing/book-listing-20160830.png)
